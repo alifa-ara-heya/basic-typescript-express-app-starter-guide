@@ -16,14 +16,16 @@ npm init -y
 ### Runtime Dependencies
 
 ```bash
-npm install express mongoose
+npm i express mongoose
+npm install bcryptjs cookie-parser cors dotenv express express-session http-status-codes jsonwebtoken mongoose passport passport-google-oauth20 passport-local zod
 ```
 
-### Development Dependencies
+### Development Dependencies (if you need others)
 
 ```bash
 npm i -D typescript
-npm i --save-dev @types/express
+npm i -D @types/express @types/cors @types/dotenv @types/jsonwebtoken
+npm install --save-dev @eslint/js @types/bcryptjs @types/cookie-parser @types/cors @types/dotenv @types/express @types/express-session @types/jsonwebtoken @types/passport @types/passport-google-oauth20 @types/passport-local eslint ts-node-dev typescript typescript-eslint
 ```
 
 ## ✅ 3. Create `tsconfig.json`
@@ -66,7 +68,7 @@ To automatically restart the server whenever you make changes, you can use eithe
 Install it as a dev dependency:
 
 ```shell
-npm install --save-dev ts-node-dev
+npm i -D ts-node-dev
 ```
 
 Then, update your `package.json` scripts:
@@ -74,6 +76,7 @@ Then, update your `package.json` scripts:
 ```json
 "scripts": {
   "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+  "lint": "npx eslint ./src",
   "test": "echo \"Error: no test specified\" && exit 1"
 }
 ```
@@ -96,14 +99,39 @@ Then, update your `package.json`:
 }
 ```
 
-## ✅ 6. Create `.gitignore`
+---
+
+## 📄 6: Create `eslint.config.mjs`
+
+In your project root, create a file named `eslint.config.mjs`. Then add the following:
+
+```js
+// @ts-check
+
+import eslint from "@eslint/js";
+import tseslint from "typescript-eslint";
+
+export default tseslint.config(
+  eslint.configs.recommended,             // Base JavaScript rules
+  tseslint.configs.strict,                // Strict TypeScript rules
+  tseslint.configs.stylistic,             // Style-focused rules
+  {
+    rules: {
+      "no-console": "warn",              // Warn on console.log (but allow for debugging)
+      // Add more custom rules here if needed
+    },
+  }
+);
+```
+
+## ✅ 7. Create `.gitignore`
 
 ```gitignore
 node_modules/
 dist/
 ```
 
-## ✅ 7. Example Code
+## ✅ 8. Example Code
 
 ### `src/app.ts`
 
@@ -146,8 +174,17 @@ async function main() {
 main();
 ```
 
-## ✅ 8. Run in Development Mode
+## ✅ 9. Run in Development Mode
 
 ```bash
 npm run dev
+```
+
+---
+## 10. Lint
+
+Now you can lint your code using:
+
+```bash
+npm run lint
 ```
