@@ -22,7 +22,7 @@ npm install express mongoose
 ### Development Dependencies
 
 ```bash
-npm i --save-dev typescript
+npm i -D typescript
 npm i --save-dev @types/express
 ```
 
