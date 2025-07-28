@@ -31,7 +31,7 @@ npm i --save-dev @types/express
 Generate the config:
 
 ```bash
-npx tsc --init
+tsc --init
 ```
 
 Edit `tsconfig.json`:
